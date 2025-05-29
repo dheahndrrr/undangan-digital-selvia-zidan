@@ -1,0 +1,444 @@
+<html class="scroll-smooth" data-theme="light" lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Wedding Selvia & Zidan</title>
+  <link rel="icon" type="image/png" href="asset/image/logo.png"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Montserrat:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+      background: #000000;
+      color: #ffffff;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Great Vibes', cursive;
+    }
+    
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    .couple-photo-wrapper {
+      border-width: 6px;
+      border-color: #000000;
+      border-radius: 1rem;
+      padding: 4px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      background-color: white;
+      max-width: 192px;
+      max-height: 192px;
+      overflow: hidden;
+    }
+    .couple-photo-wrapper img {
+      border-radius: 1rem;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .animatable {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+    }
+
+    .animatable.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-black text-white">
+
+  <!-- Audio BackSound -->
+  <audio id="backsound" loop>
+    <source src="asset/sound/sound.mp3" type="audio/mpeg"/>
+  </audio>
+
+  <!-- Container for all slides -->
+  <main class="flex-1 no-scrollbar overflow-hidden" id="mainContainer">
+
+    <!-- Slide 0: Welcome Message -->
+    <section class="min-h-screen relative flex flex-col justify-start items-center px-6 text-center" id="welcome">
+      <img alt="Latar belakang foto pengantin" class="absolute inset-0 w-full h-full object-cover brightness-30" height="1400" src="asset/image/2.jpg" width="800"/>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80"></div>
+      <div class="relative z-10 max-w-md flex flex-col items-center pt-10">
+        <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-lg mb-6" style="font-family: 'Great Vibes', cursive;">
+          Undangan Pernikahan <br/>
+          Selvia &amp; Zidan
+        </h1>
+        <p class="text-lg md:text-xl mb-10 drop-shadow-md">
+          Kepada Yth <span class="font-bold text-xl" id="guest-name">Tamu undangan</span>, kami mengundang Anda untuk hadir di hari bahagia kami.
+        </p>
+      </div>
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
+        <button class="text-black hover:text-white border border-black hover:bg-black bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" id="openInvitationBtn" type="button">
+          <i class="fas fa-envelope-open"></i>
+          <span>Open Invitation</span>
+        </button>
+        <p class="text-xs">By Dhea hendrawan</p>
+      </div>
+    </section>
+
+    <!-- Slide 1: home -->
+    <section class="min-h-screen relative flex flex-col justify-center items-center px-6 text-center overflow-y-auto" id="cover" style="display:none;">
+      <img alt="Latar belakang foto pengantin" class="absolute inset-0 w-full h-full object-cover brightness-30" height="1400" src="asset/image/5.jpg" width="800"/>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80"></div>
+      <h2 class="animatable relative z-10 text-4xl md:text-5xl font-extrabold mb-6 text-white" style="font-family: 'Great Vibes', cursive;">
+        Selvia &amp; Zidan
+      </h2>
+      <div class="animatable relative z-10 w-48 h-48 md:w-64 md:h-64 overflow-hidden shadow-lg mx-auto mb-6 border-8 border-white rounded-2xl">
+        <img alt="Foto pengantin pasangan pria dan wanita " class="object-cover w-full h-full rounded-2xl" height="256" src="asset/image/4.jpg" width="256"/>
+      </div>
+      <p class="animatable relative z-10 text-lg md:text-xl font-semibold mb-2 text-white">
+        Sabtu, 5 Juli 2025
+      </p>
+      <div class="animatable relative z-10 text-3xl md:text-4xl font-bold mb-6 tracking-wide text-white" id="countdown"></div>
+      <div class="animatable relative z-10 flex justify-center mb-12 flex-wrap gap-6">
+        <a aria-label="Set to Google Calendar" class="text-white hover:text-black border border-white hover:bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Pernikahan+Selvia+dan+Zidan&amp;dates=20250705T070000Z/20250705T100000Z&amp;details=Dengan+penuh+kebahagiaan,+kami+mengundang+Anda+untuk+hadir+di+hari+bahagia+kami.&amp;location=Villa+Haroki+Wedding+Venue+(Lembah Tamansari)&amp;sf=true&amp;output=xml" rel="noopener noreferrer" target="_blank">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Set Google Calendar</span>
+        </a>
+        <a aria-label="View in Google Maps" class="text-white hover:text-black border border-white hover:bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800" href="https://maps.app.goo.gl/gh6KxmPG5mHKUNvU7" rel="noopener noreferrer" target="_blank">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Lihat Google Maps</span>
+        </a>
+      </div>
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
+        <p class="text-sm font-semibold animate-bounce select-none text-white">
+          Geser ke bawah untuk melihat lebih lanjut
+        </p>
+        <i class="fas fa-chevron-down animate-bounce text-white"></i>
+      </div>
+    </section>
+
+    <!-- Slide 2: Pengantin -->
+    <section class="min-h-screen bg-white text-black px-6 py-12 flex flex-col items-center text-center overflow-y-auto" id="couple" style="display:none;">
+      <h3 class="animatable text-3xl md:text-4xl font-extrabold mb-10" style="font-family: 'Great Vibes', cursive;">
+        Pasangan Pengantin
+      </h3>
+      <div class="animatable flex flex-col md:flex-row md:space-x-20 space-y-12 md:space-y-0 max-w-4xl w-full justify-center">
+        <div class="flex flex-col items-center max-w-xs mx-auto">
+          <div class="couple-photo-wrapper mb-4">
+            <img alt="Foto pengantin wanita" height="192" src="asset/image/6.jpg" width="192"/>
+          </div>
+          <h4 class="text-2xl font-semibold mb-1">
+            Selvia Hendrawati S.kep.,Ners
+          </h4>
+          <p class="text-sm mb-1">
+            Putri dari Bapak Hendra Yuhantara &amp; Ibu Yulianti
+          </p>
+        </div>
+        <div class="flex flex-col items-center max-w-xs mx-auto">
+          <div class="couple-photo-wrapper mb-4">
+            <img alt="Foto pengantin pria" height="192" src="asset/image/7.jpg" width="192"/>
+          </div>
+          <h4 class="text-2xl font-semibold mb-1">
+            Ziddan Wahid Freeheartman S.Tr.Sos
+          </h4>
+          <p class="text-sm mb-1">
+            Putra dari Bapak Ahmad Ali Nurdin  &amp; Ibu Nia Agustina
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Slide 3: Rangkaian Acara -->
+    <section class="min-h-screen bg-white text-black px-6 py-12 flex flex-col items-center text-center overflow-y-auto" id="events" style="display:none;">
+      <h3 class="animatable text-3xl md:text-4xl font-extrabold mb-10" style="font-family: 'Great Vibes', cursive;">
+        Rangkaian Acara
+      </h3>
+      <div class="animatable max-w-xl w-full">
+        <ul class="space-y-6 text-black text-left text-base md:text-lg">
+          <li class="flex items-start space-x-4">
+            <i class="fas fa-clock mt-1"></i>
+            <div>
+              <p class="font-semibold">Akad Nikah</p>
+              <p>Sabtu, 5 Juli 2025 - 12:00-14:00 WIB</p>
+            </div>
+          </li>
+          <li class="flex items-start space-x-4">
+            <i class="fas fa-glass-cheers mt-1"></i>
+            <div>
+              <p class="font-semibold">Resepsi Pernikahan</p>
+              <p>Sabtu, 5 Juli 2025 - 14:00-17:00 WIB</p>
+            </div>
+          </li>
+        </ul>
+        <div class="mt-12 text-center text-black">
+          <h4 class="text-2xl font-semibold mb-2 flex items-center justify-center space-x-2">
+            <i class="fas fa-map-marker-alt text-xl"></i>
+            <p class="font-semibold">Location</p>
+          </h4>
+          <p class="text-lg font-semibold max-w-md mx-auto">
+            Villa Haroki Wedding Venue ( Lembah Tamansari ) Jl. Cigadung Raya Barat 40191 No.25A, RT.03/RW.03, Cigadung, Kec. Cibeunying Kaler, Kota Bandung, Jawa Barat 40191
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Gallery -->
+    <section class="min-h-screen bg-white text-black px-6 py-12 flex flex-col items-center text-center overflow-y-auto" id="gallery" style="display:none;">
+      <h3 class="animatable text-3xl md:text-4xl font-extrabold mb-10" style="font-family: 'Great Vibes', cursive;">
+        Galeri Foto
+      </h3>
+      <div class="animatable w-full max-w-md overflow-hidden relative mb-12">
+        <div class="flex space-x-4 transition-transform duration-500 ease-in-out" id="gallerySlider1">
+          <img alt="Foto pengantin" class="rounded-lg shadow-lg flex-shrink-0 w-80 h-60 object-cover" height="240" src="asset/image/galery a1.jpg" width="320"/>
+          <img alt="Foto pengantin" class="rounded-lg shadow-lg flex-shrink-0 w-80 h-60 object-cover" height="240" src="asset/image/galery a2.jpg" width="320"/>
+          <img alt="Foto pengantin" class="rounded-lg shadow-lg flex-shrink-0 w-80 h-60 object-cover" height="240" src="asset/image/galery a3.jpg" width="320"/>
+          <img alt="Foto pengantin" class="rounded-lg shadow-lg flex-shrink-0 w-80 h-60 object-cover" height="240" src="asset/image/galery a4.jpg" width="320"/>
+        </div>
+        <button aria-label="Previous photo" class="absolute top-1/2 -translate-y-1/2 left-2 bg-black text-white rounded-full p-2 shadow-lg hover:bg-gray-800 transition" id="galleryPrev1">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button aria-label="Next photo" class="absolute top-1/2 -translate-y-1/2 right-2 bg-black text-white rounded-full p-2 shadow-lg hover:bg-gray-800 transition" id="galleryNext1">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="animatable w-full max-w-md overflow-hidden relative">
+        <div class="flex space-x-4 transition-transform duration-500 ease-in-out" id="gallerySlider2">
+          <img alt="Foto pengantin" class="rounded-lg shadow-lg flex-shrink-0 w-80 h-60 object-cover" height="240" src="asset/image/galery b1.jpg" width="320"/>
+          <img alt="Foto pengantin" class="rounded-lg shadow-lg flex-shrink-0 w-80 h-60 object-cover" height="240" src="asset/image/galery b2.jpg" width="320"/>
+          <img alt="Foto pengantin" class="rounded-lg shadow-lg flex-shrink-0 w-80 h-60 object-cover" height="240" src="asset/image/galery b3.jpg" width="320"/>
+          <img alt="Foto pengantin" class="rounded-lg shadow-lg flex-shrink-0 w-80 h-60 object-cover" height="240" src="asset/image/galery b4.jpg" width="320"/>
+        </div>
+        <button aria-label="Previous photo" class="absolute top-1/2 -translate-y-1/2 left-2 bg-black text-white rounded-full p-2 shadow-lg hover:bg-gray-800 transition" id="galleryPrev2">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button aria-label="Next photo" class="absolute top-1/2 -translate-y-1/2 right-2 bg-black text-white rounded-full p-2 shadow-lg hover:bg-gray-800 transition" id="galleryNext2">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Slide 5: Gift Love -->
+    <section class="min-h-screen bg-white text-black px-6 py-12 flex flex-col items-center text-center overflow-y-auto" id="gift" style="display:none;">
+      <h3 class="animatable text-3xl md:text-4xl font-extrabold mb-10" style="font-family: 'Great Vibes', cursive;">
+        Gift Love
+      </h3>
+      <p class="animatable mb-6 text-lg md:text-xl max-w-md">
+        Dengan hormat, bagi Anda yang ingin memberikan tanda kasih kepada kami, dapat melalui:
+      </p>
+      <div class="animatable bg-black text-white rounded-xl shadow-lg p-6 max-w-md w-full mb-8">
+        <h4 class="text-2xl font-semibold mb-4">
+          Nomor Rekening
+        </h4>
+        <p class="text-lg font-mono mb-6 select-all">
+          7431 0102 2362 535 (Bank BRI - Selvia Hendrawati)
+        </p>
+        <p class="text-lg font-mono mb-6 select-all">
+          2832 6475 52 (Bank BCA - Ziddan Wahid Freeheartman)
+        </p>
+        <h4 class="text-2xl font-semibold mb-4">
+          QRIS
+        </h4>
+        <p class="text-lg font-mono mb-6 select-all">
+          Qris ini tidak dapat digunakan pembayaran secara langsung, scan menggunakan camera biasa untuk menuju ke website pembayaran!!
+        </p>
+        <div class="flex justify-center">
+          <img alt="QRIS" class="w-48 h-48 object-contain rounded-lg shadow-md" height="200" src="asset/image/qris.png" width="200"/>
+        </div>
+      </div>
+      <footer class="w-full bg-white border-t border-black py-4">
+        <div class="max-w-md mx-auto flex items-center justify-center space-x-3 text-black font-semibold" style="font-family: 'Montserrat', sans-serif;">
+          <span>Created By Dhea Hendrawan</span>
+          <a href="https://github.com/dheahndrrr" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="text-black hover:text-gray-700 transition">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Bottom Navbar -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white text-black border-t border-gray-300 flex justify-around items-center py-2 shadow-lg z-40 hidden" id="bottomNavbar">
+    <button aria-label="Navigasi ke home" class="nav-btn flex flex-col items-center text-black hover:text-gray-700 transition focus:outline-none" data-target="cover">
+      <i class="fas fa-home text-xl"></i>
+      <span class="text-xs mt-1 font-semibold">Home</span>
+    </button>
+    <button aria-label="Navigasi ke pengantin" class="nav-btn flex flex-col items-center text-black hover:text-gray-700 transition focus:outline-none" data-target="couple">
+      <i class="fas fa-heart text-xl"></i>
+      <span class="text-xs mt-1 font-semibold">Pasangan</span>
+    </button>
+    <button aria-label="Navigasi ke Rangkaian Acara" class="nav-btn flex flex-col items-center text-black hover:text-gray-700 transition focus:outline-none" data-target="events">
+      <i class="fas fa-list-alt text-xl"></i>
+      <span class="text-xs mt-1 font-semibold">Acara</span>
+    </button>
+    <button aria-label="Navigasi ke Galeri" class="nav-btn flex flex-col items-center text-black hover:text-gray-700 transition focus:outline-none" data-target="gallery">
+      <i class="fas fa-images text-xl"></i>
+      <span class="text-xs mt-1 font-semibold">Galeri</span>
+    </button>
+    <button aria-label="Navigasi ke Gift Love" class="nav-btn flex flex-col items-center text-black hover:text-gray-700 transition focus:outline-none" data-target="gift">
+      <i class="fas fa-gift text-xl"></i>
+      <span class="text-xs mt-1 font-semibold">Gift</span>
+    </button>
+  </nav>
+
+  <script>
+    // nama tamu
+    const params = new URLSearchParams(window.location.search);
+    let guest = params.get('to');
+
+    function toTitleCase(str) {
+      return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
+
+    if (guest) {
+      guest = decodeURIComponent(guest.replace(/\+/g, ' '));
+      document.getElementById('guest-name').textContent = toTitleCase(guest);
+    }
+
+    // first gallery slider
+    const gallerySlider1 = document.getElementById('gallerySlider1');
+    const galleryPrev1 = document.getElementById('galleryPrev1');
+    const galleryNext1 = document.getElementById('galleryNext1');
+    const galleryItemsCount1 = gallerySlider1.children.length;
+    let galleryIndex1 = 0;
+
+    function updateGallery1() {
+      const width = gallerySlider1.children[0].offsetWidth + 16;
+      gallerySlider1.style.transform = `translateX(-${galleryIndex1 * width}px)`;
+    }
+
+    galleryPrev1.addEventListener('click', () => {
+      galleryIndex1 = (galleryIndex1 - 1 + galleryItemsCount1) % galleryItemsCount1;
+      updateGallery1();
+    });
+    galleryNext1.addEventListener('click', () => {
+      galleryIndex1 = (galleryIndex1 + 1) % galleryItemsCount1;
+      updateGallery1();
+    });
+
+    // second gallery slider
+    const gallerySlider2 = document.getElementById('gallerySlider2');
+    const galleryPrev2 = document.getElementById('galleryPrev2');
+    const galleryNext2 = document.getElementById('galleryNext2');
+    const galleryItemsCount2 = gallerySlider2.children.length;
+    let galleryIndex2 = 0;
+
+    function updateGallery2() {
+      const width = gallerySlider2.children[0].offsetWidth + 16;
+      gallerySlider2.style.transform = `translateX(-${galleryIndex2 * width}px)`;
+    }
+
+    galleryPrev2.addEventListener('click', () => {
+      galleryIndex2 = (galleryIndex2 - 1 + galleryItemsCount2) % galleryItemsCount2;
+      updateGallery2();
+    });
+    galleryNext2.addEventListener('click', () => {
+      galleryIndex2 = (galleryIndex2 + 1) % galleryItemsCount2;
+      updateGallery2();
+    });
+
+    // Other existing scripts
+    const openInvitationBtn = document.getElementById('openInvitationBtn');
+    const mainContainer = document.getElementById('mainContainer');
+    const coverSection = document.getElementById('cover');
+    const coupleSection = document.getElementById('couple');
+    const eventsSection = document.getElementById('events');
+    const gallerySection = document.getElementById('gallery');
+    const giftSection = document.getElementById('gift');
+    const welcomeSection = document.getElementById('welcome');
+    const backsound = document.getElementById('backsound');
+    const bottomNavbar = document.getElementById('bottomNavbar');
+
+    // Initially disable scrolling on mainContainer
+    mainContainer.style.overflowY = 'hidden';
+
+    openInvitationBtn.addEventListener('click', () => {
+      welcomeSection.style.display = 'none';
+      coverSection.style.display = 'flex';
+      coupleSection.style.display = 'flex';
+      eventsSection.style.display = 'flex';
+      gallerySection.style.display = 'flex';
+      giftSection.style.display = 'flex';
+      bottomNavbar.classList.remove('hidden');
+      mainContainer.style.overflowY = 'auto';
+      coverSection.scrollIntoView({ behavior: 'smooth' });
+      backsound.volume = 0.15;
+      backsound.play();
+    });
+
+    const countdownEl = document.getElementById('countdown');
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date(Date.UTC(2025, 6, 5, 1, 0, 0));
+      const diff = target - now;
+      if (diff <= 0) {
+        countdownEl.textContent = "Hari H!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      countdownEl.textContent = `${days} hari ${hours.toString().padStart(2,'0')}j ${minutes.toString().padStart(2,'0')}m ${seconds.toString().padStart(2,'0')}d`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    const navButtons = document.querySelectorAll('.nav-btn');
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    mainContainer.addEventListener('scroll', () => {
+      const scrollTop = mainContainer.scrollTop;
+      const welcomeHeight = welcomeSection.offsetHeight;
+      if (scrollTop < welcomeHeight / 2) {
+        backsound.pause();
+        backsound.currentTime = 0;
+      } else {
+        if (backsound.paused && (!welcomeSection.style.display || welcomeSection.style.display === 'none')) {
+          backsound.volume = 1;
+          backsound.play();
+        }
+      }
+    });
+
+    window.addEventListener('beforeunload', () => {
+      backsound.pause();
+    });
+
+    // Animasi transisi untuk setiap div dengan class animatable
+    const animatableElements = document.querySelectorAll('.animatable');
+
+    const observerOptions = {
+      root: mainContainer,
+      rootMargin: '0px 0px -100px 0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    }, observerOptions);
+
+    animatableElements.forEach(element => {
+      observer.observe(element);
+    });
+</script>
+</body>
+</html>
