@@ -45,6 +45,20 @@
       display: block;
     }
 
+    .bg-slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      z-index: -1;
+    }
+    .bg-slide.active {
+      opacity: 1;
+    }
+
     .animatable {
       opacity: 0;
       transform: translateY(20px);
@@ -54,6 +68,15 @@
     .animatable.active {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    .fade-out {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .fade-in {
+      opacity: 1;
+      transition: opacity 1s ease;
     }
   </style>
 </head>
@@ -65,25 +88,27 @@
   </audio>
 
   <!-- Container for all slides -->
-  <main class="flex-1 no-scrollbar overflow-hidden" id="mainContainer">
-
-    <!-- Slide 0: Welcome Message -->
+    <main class="flex-1 no-scrollbar overflow-hidden" id="mainContainer">
+  <!-- Slide 0: Welcome Message -->
     <section class="min-h-screen relative flex flex-col justify-start items-center px-6 text-center" id="welcome">
-      <img alt="Latar belakang foto pengantin" class="absolute inset-0 w-full h-full object-cover brightness-30" height="1400" src="asset/image/2.jpg" width="800"/>
+      <img alt="Latar belakang foto pengantin" class="absolute inset-0 w-full h-full object-cover brightness-30 bg-slide active" height="1400" src="asset/image/2.jpg" width="800"/>
+      <img alt="Latar belakang foto pengantin" class="absolute inset-0 w-full h-full object-cover brightness-30 bg-slide" height="1400" src="asset/image/1.jpg" width="800"/>
+      <img alt="Latar belakang foto pengantin" class="absolute inset-0 w-full h-full object-cover brightness-30 bg-slide" height="1400" src="asset/image/5.jpg" width="800"/>
+      <img alt="Latar belakang foto pengantin" class="absolute inset-0 w-full h-full object-cover brightness-30 bg-slide" height="1400" src="asset/image/galery a4.jpg" width="800"/>
       <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80"></div>
       <div class="relative z-10 max-w-md flex flex-col items-center pt-10">
-        <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-lg mb-6" style="font-family: 'Great Vibes', cursive;">
-          Undangan Pernikahan <br/>
-          Selvia &amp; Zidan
-        </h1>
+      <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-lg mb-6" style="font-family: 'Great Vibes', cursive;">
+        Undangan Pernikahan <br/>
+        Selvia &amp; Zidan
+      </h1>
         <p class="text-lg md:text-xl mb-10 drop-shadow-md">
           Kepada Yth <span class="font-bold text-xl" id="guest-name">Tamu undangan</span>, kami mengundang Anda untuk hadir di hari bahagia kami.
         </p>
       </div>
       <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
         <button class="text-black hover:text-white border border-black hover:bg-black bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" id="openInvitationBtn" type="button">
-          <i class="fas fa-envelope-open"></i>
-          <span>Open Invitation</span>
+        <i class="fas fa-envelope-open"></i>
+        <span>Open Invitation</span>
         </button>
         <p class="text-xs">By Dhea hendrawan</p>
       </div>
@@ -97,7 +122,7 @@
         Selvia &amp; Zidan
       </h2>
       <div class="animatable relative z-10 w-48 h-48 md:w-64 md:h-64 overflow-hidden shadow-lg mx-auto mb-6 border-8 border-white rounded-2xl">
-        <img alt="Foto pengantin pasangan pria dan wanita " class="object-cover w-full h-full rounded-2xl" height="256" src="asset/image/4.jpg" width="256"/>
+        <img alt="Foto pengantin pasangan pria dan wanita " class="object-cover w-full h-full rounded-2xl" height="256" src="asset/image/1.jpg" width="256"/>
       </div>
       <p class="animatable relative z-10 text-lg md:text-xl font-semibold mb-2 text-white">
         Sabtu, 5 Juli 2025
@@ -151,7 +176,6 @@
         </div>
       </div>
     </section>
-
 
     <!-- Slide 3: Rangkaian Acara -->
     <section class="min-h-screen bg-white text-black px-6 py-12 flex flex-col items-center text-center overflow-y-auto" id="events" style="display:none;">
@@ -256,6 +280,9 @@
           <a href="https://github.com/dheahndrrr" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="text-black hover:text-gray-700 transition">
             <i class="fab fa-github text-xl"></i>
           </a>
+          <a href="https://www.instagram.com/dhean.ms/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" class="text-black hover:text-gray-700 transition">
+            <i class="fab fa-instagram text-xl"></i>
+          </a>
         </div>
       </footer>
     </section>
@@ -298,6 +325,19 @@
       guest = decodeURIComponent(guest.replace(/\+/g, ' '));
       document.getElementById('guest-name').textContent = toTitleCase(guest);
     }
+
+    // Background welcome section
+    const slides = document.querySelectorAll('.bg-slide');
+    let currentSlide = 0;
+    const slideDuration = 1500;
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(nextSlide, slideDuration);
 
     // first gallery slider
     const gallerySlider1 = document.getElementById('gallerySlider1');
@@ -357,17 +397,31 @@
     mainContainer.style.overflowY = 'hidden';
 
     openInvitationBtn.addEventListener('click', () => {
-      welcomeSection.style.display = 'none';
-      coverSection.style.display = 'flex';
-      coupleSection.style.display = 'flex';
-      eventsSection.style.display = 'flex';
-      gallerySection.style.display = 'flex';
-      giftSection.style.display = 'flex';
-      bottomNavbar.classList.remove('hidden');
-      mainContainer.style.overflowY = 'auto';
-      coverSection.scrollIntoView({ behavior: 'smooth' });
-      backsound.volume = 0.15;
-      backsound.play();
+      // Tambahkan kelas fade-out pada welcome untuk efek transisi
+      welcomeSection.classList.add('fade-out');
+
+      // Setelah transisi 1 detik, sembunyikan welcome dan tampilkan section lain
+      setTimeout(() => {
+        welcomeSection.style.display = 'none';
+
+        // Tampilkan section utama
+        coverSection.style.display = 'flex';
+        coupleSection.style.display = 'flex';
+        eventsSection.style.display = 'flex';
+        gallerySection.style.display = 'flex';
+        giftSection.style.display = 'flex';
+        bottomNavbar.classList.remove('hidden');
+
+        // Aktifkan scroll
+        mainContainer.style.overflowY = 'auto';
+
+        // Scroll ke top halaman utama dengan lembut
+        coverSection.scrollIntoView({ behavior: 'smooth' });
+
+        // Mulai backsound dengan volume rendah
+        backsound.volume = 0.15;
+        backsound.play();
+      }, 1000); // Lama transisi fade-out 1 detik
     });
 
     const countdownEl = document.getElementById('countdown');
